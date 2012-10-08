@@ -100,5 +100,19 @@ Backbone.sync = function(method, model, options) {
     }
 };
 
+function Model(){
+
+}
+
+function View(){
+    this.render= function(){
+
+    }
+}
+
+function Collection(){
+
+}
+
 
 
