@@ -1,66 +1,101 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="utf-8" />
-	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<title></title>
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" />
+    <meta charset="utf-8"/>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <title></title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection"/>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
     <script src="js/json2.js.js"></script>
-    <script src="js/index.js"></script>
+
 </head>
 
 <body>
 
 <div id="wrapper">
 
-	<header id="header">
-		<strong>Header:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tortor. Praesent dictum, libero ut tempus dictum, neque eros elementum mauris, quis mollis arcu velit ac diam. Etiam neque. Quisque nec turpis. Aliquam arcu nulla, dictum et, lacinia a, mollis in, ante. Sed eu felis in elit tempor venenatis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ultricies porttitor purus. Proin non tellus at ligula fringilla tristique. Fusce vehicula quam. Curabitur vel tortor vitae pede imperdiet ultrices. Sed tortor.
-	</header><!-- #header-->
+    <header id="header">
+        <strong>Header:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tortor. Praesent dictum,
+        libero ut tempus dictum, neque eros elementum mauris, quis mollis arcu velit ac diam. Etiam neque. Quisque nec
+        turpis. Aliquam arcu nulla, dictum et, lacinia a, mollis in, ante. Sed eu felis in elit tempor venenatis. Cum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ultricies porttitor purus.
+        Proin non tellus at ligula fringilla tristique. Fusce vehicula quam. Curabitur vel tortor vitae pede imperdiet
+        ultrices. Sed tortor.
+    </header>
+    <!-- #header-->
 
-	<section id="middle">
+    <section id="middle">
 
-		<div id="container">
-			<div id="content">
+        <div id="container">
+            <div id="content">
+                <table class="calendar_list">
+                </table>
 
 
+            </div>
+            <!-- #content-->
+        </div>
+        <!-- #container-->
+
+        <aside id="sideLeft">
+            <strong>Left Sidebar:</strong> Integer velit. Vestibulum nisi nunc, accumsan ut, vehicula sit amet, porta a,
+            mi. Nam nisl tellus, placerat eget, posuere eget, egestas eget, dui. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. In elementum urna a eros. Integer iaculis. Maecenas
+            vel elit.
+        </aside>
+        <!-- #sideLeft -->
+
+        <aside id="sideRight">
+            <strong>Right Sidebar:</strong> Integer velit. Vestibulum nisi nunc, accumsan ut, vehicula sit amet, porta
+            a, mi. Nam nisl tellus, placerat eget, posuere eget, egestas eget, dui. Pellentesque habitant morbi
+            tristique senectus et netus et malesuada fames ac turpis egestas. In elementum urna a eros. Integer iaculis.
+            Maecenas vel elit.
+        </aside>
+        <!-- #sideRight -->
+
+    </section>
+    <!-- #middle-->
 
 
+    <script id="item" type="text/template">
+        <div class="view">
+            <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+            <label><%= title %></label>
+            <a class="destroy"></a>
+        </div>
+<input class="edit" type="text" value="<%= title %>"/>
+    </script>
+    <script id="not_item" type="text/template">
+        <tr>
+            <td>Ничего не найдено, попробуйте изменить параметры фильтра</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
 
-			</div><!-- #content-->
-		</div><!-- #container-->
+    </script>
+    <script id="filter" type="text/template">
+        <div class="input-append pagination-centered margin_bottom_18">
+            <input type="text" value='<%=filter%>' class="span3 js-filter" id="" size="16" name="<%=name%>">
+            <button class="btn js-button-click" type="button"><i class="icon-search"></i></button>
+        </div>
+    </script>
 
-		<aside id="sideLeft">
-			<strong>Left Sidebar:</strong> Integer velit. Vestibulum nisi nunc, accumsan ut, vehicula sit amet, porta a, mi. Nam nisl tellus, placerat eget, posuere eget, egestas eget, dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In elementum urna a eros. Integer iaculis. Maecenas vel elit.
-		</aside><!-- #sideLeft -->
-
-		<aside id="sideRight">
-			<strong>Right Sidebar:</strong> Integer velit. Vestibulum nisi nunc, accumsan ut, vehicula sit amet, porta a, mi. Nam nisl tellus, placerat eget, posuere eget, egestas eget, dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In elementum urna a eros. Integer iaculis. Maecenas vel elit.
-		</aside><!-- #sideRight -->
-
-	</section><!-- #middle-->
-
-</div><!-- #wrapper -->
+    <script src="js/index.js"></script>
+</div>
+<!-- #wrapper -->
 
 <footer id="footer">
-	<strong>Footer:</strong> Mus elit Morbi mus enim lacus at quis Nam eget morbi. Et semper urna urna non at cursus dolor vestibulum neque enim. Tellus interdum at laoreet laoreet lacinia lacinia sed Quisque justo quis. Hendrerit scelerisque lorem elit orci tempor tincidunt enim Phasellus dignissim tincidunt. Nunc vel et Sed nisl Vestibulum odio montes Aliquam volutpat pellentesque. Ut pede sagittis et quis nunc gravida porttitor ligula.
-</footer><!-- #footer -->
-
-
-{
-    schema : {name: {type: "string"} ,date: {type: "date"},theme: {type: "string"}}
-    data :[
-        [],
-        [],
-        [],
-        []
-    ]
-}
-
-
-
+    <strong>Footer:</strong> Mus elit Morbi mus enim lacus at quis Nam eget morbi. Et semper urna urna non at cursus
+    dolor vestibulum neque enim. Tellus interdum at laoreet laoreet lacinia lacinia sed Quisque justo quis. Hendrerit
+    scelerisque lorem elit orci tempor tincidunt enim Phasellus dignissim tincidunt. Nunc vel et Sed nisl Vestibulum
+    odio montes Aliquam volutpat pellentesque. Ut pede sagittis et quis nunc gravida porttitor ligula.
+</footer>
+<!-- #footer -->
 </body>
 </html>
