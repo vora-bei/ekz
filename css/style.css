@@ -67,7 +67,7 @@ input {
 	margin: 0 auto;
 	min-height: 100%;
 	height: auto !important;
-	height: 100%;
+
 }
 
 
@@ -140,22 +140,21 @@ input {
 
 /* Item
 -----------------------------------------------------------------------------*/
-.calendar_list tr.editing {
-    border-bottom: medium none;
+.calendar_list .editing {
+
     margin-top: -1px;
     padding: 0;
 }
 
-.calendar_list tr.editing .edit {
+.calendar_list .editing .edit {
     display: block;
     margin: 0;
-    padding: 13px 15px 14px 20px;
-    width: 444px;
+
 }
-.calendar_list tr.editing .view {
+.calendar_list .editing .view {
     display: none;
 }
-.calendar_list tr .edit {
+.calendar_list  .edit {
     display: none;
 }
 

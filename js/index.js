@@ -126,6 +126,14 @@ _.extend(Store.prototype, {
 
 });
 
+$.tools.dateinput.localize("ru",  {
+	months:      'Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь',
+	shortMonths: 'Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек',
+	days:        'воскресенье,понедельник,вторник,среда,четверг,пятница,суббота',
+	shortDays:   'Вс,Пн,Вт,Ср,Чт,Пт,Сб'
+});
+$.tools.dateinput.conf.lang = 'ru';
+$(":date").dateinput({lang:'ru',offset: [-1000, 0]});
 
 var dataelem =
 {
@@ -239,18 +247,21 @@ var mainApp = Backbone.View.extend({
 			var view = new item({model:new Backbone.Model()});
 			this.$(elem).append(view.render_not_item().el);
 			this[list][0] = view;
+
 		}
+		this.$(":date").dateinput({lang:'ru'});
+		$("#content").append($('#calroot'));
 	},
 
 	_item: Backbone.View.extend({
 
 		template:_.template($('#item').html()),
 		template_not_item:_.template($('#not_item').html()),
-		tagName:"tr",
 
 		_initialize:function (options) {
 			this.model.on('sync', this.render, this);
 			this.self = this.options.self;
+
 		},
 		events:{
 		},
