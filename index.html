@@ -7,11 +7,13 @@
     <title></title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
+    <link rel="stylesheet" href="css/datepicker.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection"/>
-     <link rel="stylesheet" href="css/datepicker.css" type="text/css" media="screen, projection"/>
+
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/jquery.tools.min.js"></script>
     <script src="js/underscore.js"></script>
+    <script src="js/jquery.meio.mask.js"></script>
     <script src="js/backbone.js"></script>
     <script src="js/json2.js.js"></script>
 
@@ -52,12 +54,7 @@
         </aside>
         <!-- #sideLeft -->
 
-        <aside id="sideRight">
-            <strong>Right Sidebar:</strong> Integer velit. Vestibulum nisi nunc, accumsan ut, vehicula sit amet, porta
-            a, mi. Nam nisl tellus, placerat eget, posuere eget, egestas eget, dui. Pellentesque habitant morbi
-            tristique senectus et netus et malesuada fames ac turpis egestas. In elementum urna a eros. Integer iaculis.
-            Maecenas vel elit.
-        </aside>
+
         <!-- #sideRight -->
 
     </section>
@@ -65,20 +62,19 @@
 
 
     <script id="item" type="text/template">
-        <div class="editing">
-
-                    <label class="view"><%= data.time %></label>
-                    <input class="edit" type="text" value="<%= data.time %>"/>
-                    <label class="view"><%= data.date %></label>
-                    <input class="edit" type="date" value="<%= data.date %>"/>
-                    <label class="view"><%= data.title %></label>
-                    <input class="edit" type="text" value="<%= data.title %>"/>
-                    <label class="view"><%= data.presenter %></label>
-                    <input class="edit" type="text" value="<%= data.presenter %>"/>
-                    <label class="view"><%= data.presentation %></label>
-                    <input class="edit" type="text" value="<%= data.presentation %>"/>
-                    <label class="view"><%= data.abstract %></label>
-                    <input class="edit" type="text" value="<%= data.abstract %>"/>
+        <div class="">
+                <label class="view"><%= data.time %></label>
+                <input class="edit time" type="text" value="<%= data.time ? data.time : '00:00' %>"/>
+                <label class="view"><%= data.date %></label>
+                <input class="edit" type="date" value="<%= data.date %>"/>
+                <label class="view"><%= data.title %></label>
+                <input class="edit" type="text" value="<%= data.title %>"/>
+                <label class="view"><%= data.presenter %></label>
+                <input class="edit" type="text" value="<%= data.presenter %>"/>
+                <label class="view"><%= data.presentation %></label>
+                <input class="edit" type="text" value="<%= data.presentation %>"/>
+                <label class="view"><%= data.abstract %></label>
+                <input class="edit" type="text" value="<%= data.abstract %>"/>
                 <a class="destroy"></a>
         </div>
     </script>

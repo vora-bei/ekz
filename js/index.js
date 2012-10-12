@@ -133,18 +133,19 @@ $.tools.dateinput.localize("ru",  {
 	shortDays:   'Вс,Пн,Вт,Ср,Чт,Пт,Сб'
 });
 $.tools.dateinput.conf.lang = 'ru';
-$(":date").dateinput({lang:'ru',offset: [-1000, 0]});
+
+
 
 var dataelem =
 {
 	schema:['date', 'time', 'title', 'abstract', 'presenter', 'presentation', 'id'],
 	data:[
-		['10 октября 2011', 'time', 'title', 'abstract', 'presenter', 'presentation'],
-		['10 октября 2012', 'time', 'title', 'abstract', 'presenter', 'presentation1'],
-		['10 октября 2010', 'time', 'title', 'abstract', 'presenter', 'presentation2'],
-		['11 октября 2011', 'time', 'title', 'abstract', 'presenter', 'presentation3'],
-		['14 октября 2011', 'time', 'title', 'abstract', 'presenter', 'presentation4'],
-		['17 октября 2011', 'time', 'title', 'abstract', 'presenter', 'presentation5']
+		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation'],
+		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation1'],
+		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation2'],
+		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation3'],
+		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation4'],
+		['10/16/12', '', 'title ', 'abstract', 'presenter', 'presentation5']
 
 	]
 }
@@ -250,8 +251,16 @@ var mainApp = Backbone.View.extend({
 
 		}
 		this.$(":date").dateinput({lang:'ru'});
-		$("#content").append($('#calroot'));
-	},
+        this.$(".time").setMask("29:59")
+            .keypress(function() {
+                var currentMask = $(this).data('mask').mask;
+                var newMask = $(this).val().match(/^2.*/) ? "23:59" : "29:59";
+                if (newMask != currentMask) {
+                    $(this).setMask(newMask);
+                }
+            });
+
+    },
 
 	_item: Backbone.View.extend({
 
