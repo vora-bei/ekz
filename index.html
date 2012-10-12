@@ -63,12 +63,33 @@
 
 
     <script id="item" type="text/template">
-        <div class="view">
-            <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
-            <label><%= title %></label>
-            <a class="destroy"></a>
-        </div>
-<input class="edit" type="text" value="<%= title %>"/>
+        <tr class="editing">
+                <td>
+                    <label class="view"><%= data.time %></label>
+                    <input class="edit" type="text" value="<%= data.time %>"/>
+                </td>
+                <td>
+                    <label class="view"><%= data.date %></label>
+                    <input class="edit" type="text" value="<%= data.date %>"/>
+                </td>
+                <td>
+                    <label class="view"><%= data.title %></label>
+                    <input class="edit" type="text" value="<%= data.title %>"/>
+                </td>
+                <td>
+                    <label class="view"><%= data.presenter %></label>
+                    <input class="edit" type="text" value="<%= data.presenter %>"/>
+                </td>
+                <td>
+                    <label class="view"><%= data.presentation %></label>
+                    <input class="edit" type="text" value="<%= data.presentation %>"/>
+                </td>
+                <td>
+                    <label class="view"><%= data.abstract %></label>
+                    <input class="edit" type="text" value="<%= data.abstract %>"/>
+                </td>
+                <a class="destroy"></a>
+        </tr>
     </script>
     <script id="not_item" type="text/template">
         <tr>
