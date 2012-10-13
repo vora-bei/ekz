@@ -15,7 +15,7 @@
     <script src="js/underscore.js"></script>
     <script src="js/jquery.meio.mask.js"></script>
     <script src="js/backbone.js"></script>
-    <script src="js/json2.js.js"></script>
+    <script src="js/json2.js"></script>
 
 </head>
 
@@ -37,8 +37,8 @@
 
         <div id="container">
             <div id="content">
-                <table class="calendar_list">
-                </table>
+                <div class="calendar_list">
+                </div>
 
 
             </div>
@@ -62,7 +62,7 @@
 
 
     <script id="item" type="text/template">
-        <div class=" calendar_item">
+        <div class=" calendar_item editing">
                 <label class="view"><%= data.time %></label>
                 <input class="edit time" type="text" value="<%= data.time ? data.time : '00:00' %>"/>
                 <label class="view"><%= data.date %></label>
@@ -76,15 +76,13 @@
                 <label class="view"><%= data.abstract %></label>
                 <input class="edit" type="text" value="<%= data.abstract %>"/>
                 <a class="destroy"></a>
+                <a class="toggle">редактировать</a>
         </div>
     </script>
     <script id="not_item" type="text/template">
-        <tr>
+        <div>
             <td>Ничего не найдено, попробуйте изменить параметры фильтра</td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        </div>
 
     </script>
     <script id="filter" type="text/template">

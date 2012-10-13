@@ -93,7 +93,7 @@ _.extend(Store.prototype, {
 		return JSON.stringify(data)
 
 	},
-	import:function (data) {
+	import : function (data) {
 		if (!(data && data.schema && data.data)) {
 			conslole.log('ошибка формата данных')
 			return false;
@@ -104,7 +104,7 @@ _.extend(Store.prototype, {
 			tempItem = {},
 			schema = data.schema
 			list = data.data,
-			listTemp=[];
+			listTemp={};
 
 
 		lengthShema = schema.length;
@@ -115,8 +115,8 @@ _.extend(Store.prototype, {
 				tempItem[schema[j]] = list[i][j]
 
 			}
-			tempItem.id = guid();
-			listTemp.push(tempItem)
+            if (!tempItem.id) tempItem.id = guid();
+			listTemp[tempItem.id]=tempItem
 		}
 		this.data = listTemp;
 		localStorage.setItem(this.name, JSON.stringify(this.data));
@@ -268,13 +268,14 @@ var mainApp = Backbone.View.extend({
 		template_not_item:_.template($('#not_item').html()),
 
 		_initialize:function (options) {
-			this.model.on('sync', this.render, this);
-			this.self = this.options.self;
+            this.model.on('destroy', this.lazy_remove, this);
 
 		},
-		events:{
-		},
-		render_not_item:function () {
+        events:{
+            "click .destroy" : 'destroy',
+            "click .toggle" : 'toggle'
+        },
+        render_not_item:function () {
 			if (!_.isEmpty(this.model)) {
 				var item = this.model.toJSON();
 				var template = $(this.template_not_item({data:item}))
@@ -305,7 +306,22 @@ var mainApp = Backbone.View.extend({
 				attr[item.nodeName] = item.value;
 			}, this)
 			to.attr(attr)
-		}
+		},
+
+        lazy_remove:function () {
+            this.$el.slideUp('slow');
+            this.model = null;
+            this.$el.html('');
+        },
+
+        destroy : function () {
+            this.model.destroy({wait: true});
+            //this.model.collection.remove(this.model)
+            return false;
+        },
+        toggle : function(e){
+            this.$el.toggleClass('editing')
+        }
 	})
 
 
@@ -371,38 +387,12 @@ var change_item = {
 
 	delete:function () {
 
-		this.model.destroy({url:this.model.collection.url_delete(this.model.get('id'))});
+		this.model.destroy();
 		this.model = null;
 		return false;
 	}
 
 }
-
-
-var delete_item = {
-	_initialize:function () {
-		this.model.on('remove', this.lazy_remove, this);
-	},
-
-	events:{
-		"click .js-delete":'delete'
-	},
-
-	lazy_remove:function () {
-		this.$el.slideUp('slow');
-		this.$el.html('');
-		this.self.render()
-	},
-
-	delete:function () {
-
-		this.model.destroy({url:this.model.collection.url_delete(this.model.get('id'))});
-		this.model = null;
-		return false;
-	}
-
-}
-
 
 
 var calendarCollection = new ItemList;
