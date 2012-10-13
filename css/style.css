@@ -158,14 +158,21 @@ input {
     display: none;
 }
 
+ .calendar_item:hover .destroy {
+    display: block;
+}
+
+.calendar_item {
+    position: relative;
+    width: 300px;
+}
 
 .calendar_list .destroy {
-    background: url("/img/destroy.png") no-repeat scroll 0 0 transparent;
+    background: url("../img/destroy.png") no-repeat scroll 0 0 transparent;
     cursor: pointer;
     display: none;
     height: 20px;
     position: absolute;
     right: 5px;
-    top: 20px;
     width: 20px;
 }
