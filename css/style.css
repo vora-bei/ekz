@@ -272,7 +272,7 @@ a.caldisabled {
     padding: 0;
 }
 .calendar_list td {
-    padding: 3px;
+    padding: 2px;
 }
 .calendar_list tr {
     border-bottom: 1px solid black;
@@ -296,14 +296,47 @@ a.caldisabled {
     display: inline-block;
 }
 
-.calendar_item {
-
-}
 .calendar_list .toggle, .calendar_list .destroy{
     cursor: pointer;
     display: none;
     height: 30px;
     margin-right: 5px;
+    right: -30px;
     position: relative;
     width: 20px;
+}
+/* Header calendar
+-----------------------------------------------------------------------------*/
+.menu-calendar a{
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+/* input
+-----------------------------------------------------------------------------*/
+input:focus{
+    outline:none;
+    border-color: rgba(255, 211, 58, 0.74);
+    border-radius:3px;
+    box-shadow:0 0 8px rgba(255,25,33,.5);
+
+}
+input{
+    border:1px solid #aaa;
+    border-radius:3px;
+    height: 28px;
+    font-size: 14px;
+
+
+
+}
+.input-append{
+    padding-top: 30px;
+    text-align: center;
+}
+
+.input-append input{
+    margin-right: -3px;
+    display: inline-block;
+    width: 400px
 }

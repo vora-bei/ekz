@@ -26,8 +26,9 @@
     <header id="header">
         <strong>Header:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tortor. Praesent dictum, libero ut tempus dictum, neque eros elementum mauris, quis mollis arcu velit ac diam. Etiam neque. Quisque nec turpis. Aliquam arcu nulla, dictum et, lacinia a, mollis in, ante. Sed eu felis in elit tempor venenatis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ultricies porttitor purus. Proin non tellus at ligula fringilla tristique. Fusce vehicula quam. Curabitur vel tortor vitae pede imperdiet ultrices. Sed tortor.
     </header><!-- #header-->
+    <div id="search"></div>
+    <div id="list">
 
-    <div id="content">
         <table class="calendar_list">
             <thead>
                 <tr class='calendar_item'>
@@ -51,8 +52,11 @@
                     <td width='250px'>
                         <label class="view">Презентация</label>
                     </td>
-                    <td width='60px'>
-
+                    <td width='80px' class="menu-calendar">
+                        <a class="add-elem" title="добавить"><i class=" icon-plus"></i></a>
+                        <a class="import" title="экспортировать"><i class="icon-download"></i></a>
+                        <a class="export" title="импортировать"><i class="icon-upload"></i></a>
+                        <a class="print" title="печать"><i class="icon-print"></i></a>
                     </td>
                 </tr>
             </thead>
@@ -108,8 +112,8 @@
 </script>
 <script id="filter" type="text/template">
     <div class="input-append pagination-centered margin_bottom_18">
-        <input type="text" value='<%=filter%>' class="span3 js-filter" id="" size="16" name="<%=name%>">
-        <button class="btn js-button-click" type="button"><i class="icon-search"></i></button>
+        <input type="text" value='<%=filter%>' class="span3 filter"  size="16" name="<%=name%>">
+        <button class="btn filter-button-click" type="button"><i class="icon-search"></i></button>
     </div>
 </script>
 
