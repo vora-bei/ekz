@@ -250,16 +250,6 @@ var mainApp = Backbone.View.extend({
 			this[list][0] = view;
 
 		}
-		this.$(":date").dateinput({lang:'ru'});
-        this.$(".time").setMask("29:59")
-            .keypress(function() {
-                var currentMask = $(this).data('mask').mask;
-                var newMask = $(this).val().match(/^2.*/) ? "23:59" : "29:59";
-                if (newMask != currentMask) {
-                    $(this).setMask(newMask);
-                }
-            });
-
     },
 
 	_item: Backbone.View.extend({
@@ -269,6 +259,7 @@ var mainApp = Backbone.View.extend({
         tagName : 'tr',
 		initialize:function (options) {
             this.model.on('destroy', this.lazy_remove, this);
+            this.model.on('sync', this.render, this);
 
 		},
         events:{
@@ -286,7 +277,16 @@ var mainApp = Backbone.View.extend({
 		},
 
 		render:function () {
-			this._render_item()
+			this._render_item();
+            this.$(":date").dateinput({lang:'ru'});
+            this.$(".time").setMask("29:59")
+                .keypress(function() {
+                    var currentMask = $(this).data('mask').mask;
+                    var newMask = $(this).val().match(/^2.*/) ? "23:59" : "29:59";
+                    if (newMask != currentMask) {
+                        $(this).setMask(newMask);
+                    }
+                });
 			return this
 		},
 
@@ -319,7 +319,20 @@ var mainApp = Backbone.View.extend({
             return false;
         },
         toggle : function(e){
-            this.$el.toggleClass('editing')
+            if(!this.$el.hasClass('editing')){
+                this.$el.addClass('editing')
+            }else{
+                var $self=this,
+                    $this,
+                    value;
+                this.$('[name]').each(function(){
+                    $this=$(this)
+                    $self.model.set($this.attr('name'),$this.attr('value'))
+
+                })
+                this.model.save()
+                this.$el.removeClass('editing')
+            }
         }
 	})
 

@@ -31,27 +31,27 @@
         <table class="calendar_list">
             <thead>
                 <tr class='calendar_item'>
-                    <td width='400px'>
+                    <td width='70px'>
                         <label >Дата</label>
                     </td >
-                    <td width='400px'>
+                    <td width='70px'>
                         <label >Время</label>
                     </td>
 
-                    <td width='400px'>
+                    <td width='150px'>
                         <label >Тема</label>
                     </td>
-                    <td>
+                    <td width='200px'>
                         <label >Докладчик</label>
                     </td>
-                    <td>
+                    <td width='150px'>
                         <label >Тезисы</label>
 
                     </td>
-                    <td width='400px'>
+                    <td width='250px'>
                         <label class="view">Презентация</label>
                     </td>
-                    <td>
+                    <td width='60px'>
 
                     </td>
                 </tr>
@@ -67,33 +67,34 @@
 <script id="item" type="text/template">
     <tr class=" calendar_item">
         <td>
-            <label class="view"><%= data.time %></label>
-            <input class="edit time" type="text" value="<%= data.time ? data.time : '00:00' %>"/>
+            <label class="view"><%= data.date %></label>
+            <input class="edit date" type="date" name='date' value="<%= data.date %>"/>
         </td>
         <td>
-            <label class="view"><%= data.date %></label>
-            <input class="edit" type="date" value="<%= data.date %>"/>
+            <label class="view"><%= data.time %></label>
+            <input class="edit time" type="text" name='time' value="<%= data.time ? data.time : '00:00' %>"/>
         </td>
+
         <td>
             <label class="view"><%= data.title %></label>
-            <input class="edit" type="text" value="<%= data.title %>"/>
+            <input class="edit" type="text" name='title' value="<%= data.title %>"/>
         </td>
         <td>
             <label class="view"><%= data.presenter %></label>
-            <input class="edit" type="text" value="<%= data.presenter %>"/>
+            <input class="edit presenter" name='presenter' type="text" value="<%= data.presenter %>"/>
         </td>
         <td>
             <label class="view"><%= data.abstract %></label>
-            <input class="edit" type="text" value="<%= data.abstract %>"/>
+            <input class="edit" type="text" name='abstract' value="<%= data.abstract %>"/>
 
         </td>
-        <td width='400px'>
+        <td >
             <label class="view"><%= data.presentation %></label>
-            <textarea class="edit" type="text" ><%= data.presentation %></textarea>
+            <textarea class="edit presentation" name='presentation' type="text"><%= data.presentation %></textarea>
         </td>
         <td>
             <a class="destroy"></a>
-            <a class="toggle">редактировать</a>
+            <a class="toggle">edit</a>
         </td>
 
     </tr>

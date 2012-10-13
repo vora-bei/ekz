@@ -237,17 +237,43 @@ a.caldisabled {
     background-color:#333;
     color:#fff;
 }
-
-
-
-/* Item
+/* Input
 -----------------------------------------------------------------------------*/
+.date{
+    width: 55px;
+}
+.time{
+    width: 55px;
+}
+.presenter{
+    width: 190px;
+}
+.presentation{
+    width: 220px;
+}
+.abstract{
+    width: 140px;
+}
+.title{
+    width: 140px;
+}
+/* List and Item calendar
+-----------------------------------------------------------------------------*/
+
 .calendar_list .editing {
 
     margin-top: -1px;
     padding: 0;
 }
-
+.calendar_list td {
+    padding: 3px;
+}
+.calendar_list tr {
+    border-bottom: 1px solid black;
+    height: 60px;
+    position: relative;
+    width: 1000px;
+}
 .calendar_list .editing .edit {
     display: block;
     margin: 0;
@@ -265,8 +291,7 @@ a.caldisabled {
 }
 
 .calendar_item {
-    position: relative;
-    width: 800px;
+
 }
 
 .calendar_list .destroy {
@@ -274,7 +299,7 @@ a.caldisabled {
     cursor: pointer;
     display: none;
     height: 20px;
-    position: absolute;
-    right: 5px;
+    position: relative;
+    right: -38px;
     width: 20px;
 }
