@@ -140,8 +140,8 @@ var dataelem =
 {
 	schema:['date', 'time', 'title', 'abstract', 'presenter', 'presentation', 'id'],
 	data:[
-		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation'],
-		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation1'],
+		['15/09/12', '12:00', 'Общий цикл разработки ', '', 'Михаил Трошев', 'Итак, первая лекция — «Общий цикл разработки», лектор Миша Трошев (mishanga).Презентация лекции: http://yadi.sk/d/VDsJ4ZUBiq6u Видео — http://static.video.yandex.ru/lite/ya-events/yb1ix4ck06.4829 Видео для скачивания — http://yadi.sk/d/Lr0Y4WO606jTc'],
+		['15/09/12', '', 'title', 'abstract', 'presenter', 'presentation1'],
 		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation2'],
 		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation3'],
 		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation4'],
@@ -266,8 +266,8 @@ var mainApp = Backbone.View.extend({
 
 		template:_.template($('#item').html()),
 		template_not_item:_.template($('#not_item').html()),
-
-		_initialize:function (options) {
+        tagName : 'tr',
+		initialize:function (options) {
             this.model.on('destroy', this.lazy_remove, this);
 
 		},
@@ -296,7 +296,7 @@ var mainApp = Backbone.View.extend({
 				var template = $(this.template({data:item}))
 				this.copyAttr(template, this.$el)
 				this.$el.html(template.html())
-				return this;
+		    		return this;
 			}
 		},
 		copyAttr:function (from, to) {
@@ -316,7 +316,6 @@ var mainApp = Backbone.View.extend({
 
         destroy : function () {
             this.model.destroy({wait: true});
-            //this.model.collection.remove(this.model)
             return false;
         },
         toggle : function(e){

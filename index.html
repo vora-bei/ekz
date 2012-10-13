@@ -24,84 +24,93 @@
 <div id="wrapper">
 
     <header id="header">
-        <strong>Header:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tortor. Praesent dictum,
-        libero ut tempus dictum, neque eros elementum mauris, quis mollis arcu velit ac diam. Etiam neque. Quisque nec
-        turpis. Aliquam arcu nulla, dictum et, lacinia a, mollis in, ante. Sed eu felis in elit tempor venenatis. Cum
-        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ultricies porttitor purus.
-        Proin non tellus at ligula fringilla tristique. Fusce vehicula quam. Curabitur vel tortor vitae pede imperdiet
-        ultrices. Sed tortor.
-    </header>
-    <!-- #header-->
+        <strong>Header:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tortor. Praesent dictum, libero ut tempus dictum, neque eros elementum mauris, quis mollis arcu velit ac diam. Etiam neque. Quisque nec turpis. Aliquam arcu nulla, dictum et, lacinia a, mollis in, ante. Sed eu felis in elit tempor venenatis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ultricies porttitor purus. Proin non tellus at ligula fringilla tristique. Fusce vehicula quam. Curabitur vel tortor vitae pede imperdiet ultrices. Sed tortor.
+    </header><!-- #header-->
 
-    <section id="middle">
+    <div id="content">
+        <table class="calendar_list">
+            <thead>
+                <tr class='calendar_item'>
+                    <td width='400px'>
+                        <label >Дата</label>
+                    </td >
+                    <td width='400px'>
+                        <label >Время</label>
+                    </td>
 
-        <div id="container">
-            <div id="content">
-                <div class="calendar_list">
-                </div>
+                    <td width='400px'>
+                        <label >Тема</label>
+                    </td>
+                    <td>
+                        <label >Докладчик</label>
+                    </td>
+                    <td>
+                        <label >Тезисы</label>
 
+                    </td>
+                    <td width='400px'>
+                        <label class="view">Презентация</label>
+                    </td>
+                    <td>
 
-            </div>
-            <!-- #content-->
-        </div>
-        <!-- #container-->
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div><!-- #content-->
 
-        <aside id="sideLeft">
-            <strong>Left Sidebar:</strong> Integer velit. Vestibulum nisi nunc, accumsan ut, vehicula sit amet, porta a,
-            mi. Nam nisl tellus, placerat eget, posuere eget, egestas eget, dui. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. In elementum urna a eros. Integer iaculis. Maecenas
-            vel elit.
-        </aside>
-        <!-- #sideLeft -->
-
-
-        <!-- #sideRight -->
-
-    </section>
-    <!-- #middle-->
-
-
-    <script id="item" type="text/template">
-        <div class=" calendar_item editing">
-                <label class="view"><%= data.time %></label>
-                <input class="edit time" type="text" value="<%= data.time ? data.time : '00:00' %>"/>
-                <label class="view"><%= data.date %></label>
-                <input class="edit" type="date" value="<%= data.date %>"/>
-                <label class="view"><%= data.title %></label>
-                <input class="edit" type="text" value="<%= data.title %>"/>
-                <label class="view"><%= data.presenter %></label>
-                <input class="edit" type="text" value="<%= data.presenter %>"/>
-                <label class="view"><%= data.presentation %></label>
-                <input class="edit" type="text" value="<%= data.presentation %>"/>
-                <label class="view"><%= data.abstract %></label>
-                <input class="edit" type="text" value="<%= data.abstract %>"/>
-                <a class="destroy"></a>
-                <a class="toggle">редактировать</a>
-        </div>
-    </script>
-    <script id="not_item" type="text/template">
-        <div>
-            <td>Ничего не найдено, попробуйте изменить параметры фильтра</td>
-        </div>
-
-    </script>
-    <script id="filter" type="text/template">
-        <div class="input-append pagination-centered margin_bottom_18">
-            <input type="text" value='<%=filter%>' class="span3 js-filter" id="" size="16" name="<%=name%>">
-            <button class="btn js-button-click" type="button"><i class="icon-search"></i></button>
-        </div>
-    </script>
-
-    <script src="js/index.js"></script>
-</div>
-<!-- #wrapper -->
+</div><!-- #wrapper -->
 
 <footer id="footer">
-    <strong>Footer:</strong> Mus elit Morbi mus enim lacus at quis Nam eget morbi. Et semper urna urna non at cursus
-    dolor vestibulum neque enim. Tellus interdum at laoreet laoreet lacinia lacinia sed Quisque justo quis. Hendrerit
-    scelerisque lorem elit orci tempor tincidunt enim Phasellus dignissim tincidunt. Nunc vel et Sed nisl Vestibulum
-    odio montes Aliquam volutpat pellentesque. Ut pede sagittis et quis nunc gravida porttitor ligula.
-</footer>
-<!-- #footer -->
+    <strong>Footer:</strong> Mus elit Morbi mus enim lacus at quis Nam eget morbi. Et semper urna urna non at cursus dolor vestibulum neque enim. Tellus interdum at laoreet laoreet lacinia lacinia sed Quisque justo quis. Hendrerit scelerisque lorem elit orci tempor tincidunt enim Phasellus dignissim tincidunt. Nunc vel et Sed nisl Vestibulum odio montes Aliquam volutpat pellentesque. Ut pede sagittis et quis nunc gravida porttitor ligula.
+</footer><!-- #footer -->
+<script id="item" type="text/template">
+    <tr class=" calendar_item">
+        <td>
+            <label class="view"><%= data.time %></label>
+            <input class="edit time" type="text" value="<%= data.time ? data.time : '00:00' %>"/>
+        </td>
+        <td>
+            <label class="view"><%= data.date %></label>
+            <input class="edit" type="date" value="<%= data.date %>"/>
+        </td>
+        <td>
+            <label class="view"><%= data.title %></label>
+            <input class="edit" type="text" value="<%= data.title %>"/>
+        </td>
+        <td>
+            <label class="view"><%= data.presenter %></label>
+            <input class="edit" type="text" value="<%= data.presenter %>"/>
+        </td>
+        <td>
+            <label class="view"><%= data.abstract %></label>
+            <input class="edit" type="text" value="<%= data.abstract %>"/>
+
+        </td>
+        <td width='400px'>
+            <label class="view"><%= data.presentation %></label>
+            <textarea class="edit" type="text" ><%= data.presentation %></textarea>
+        </td>
+        <td>
+            <a class="destroy"></a>
+            <a class="toggle">редактировать</a>
+        </td>
+
+    </tr>
+</script>
+<script id="not_item" type="text/template">
+    <div>
+        <td>Ничего не найдено, попробуйте изменить параметры фильтра</td>
+    </div>
+
+</script>
+<script id="filter" type="text/template">
+    <div class="input-append pagination-centered margin_bottom_18">
+        <input type="text" value='<%=filter%>' class="span3 js-filter" id="" size="16" name="<%=name%>">
+        <button class="btn js-button-click" type="button"><i class="icon-search"></i></button>
+    </div>
+</script>
+
+<script src="js/index.js"></script>
 </body>
 </html>
