@@ -85,12 +85,16 @@ input {
 
 /* Footer
 -----------------------------------------------------------------------------*/
+
 #footer {
-    width: 1000px;
-    margin: -100px auto 0;
-    height: 100px;
-    background: #BFF08E;
+    background: none repeat scroll 0 0 rgba(130, 126, 132, 0.69);
+    border-radius: 5px 5px 0 0;
+    height: 15px;
+    margin: -20px auto 0;
+    padding: 2px;
     position: relative;
+    text-align: center;
+    width: 1000px;
 }
 
 /* DatePicker
@@ -139,13 +143,15 @@ input {
     display:block;
     width:20px;
     height:20px;
-    background:transparent url(/media/img/dateinput/prev.gif) no-repeat scroll center center;
+    background:transparent url("../img/glyphicons-halflings.png") no-repeat scroll center center;
+    background-position: -432px -72px;
     float:left;
     cursor:pointer;
 }
 
 #calnext {
-    background-image:url(/media/img/dateinput/next.gif);
+    background-image: url("../img/glyphicons-halflings.png");
+    background-position: -456px -72px;
     float:right;
 }
 
@@ -286,20 +292,18 @@ a.caldisabled {
     display: none;
 }
 
- .calendar_item:hover .destroy {
-    display: block;
+ .calendar_item:hover .destroy,.calendar_item:hover .toggle {
+    display: inline-block;
 }
 
 .calendar_item {
 
 }
-
-.calendar_list .destroy {
-    background: url("../img/destroy.png") no-repeat scroll 0 0 transparent;
+.calendar_list .toggle, .calendar_list .destroy{
     cursor: pointer;
     display: none;
-    height: 20px;
+    height: 30px;
+    margin-right: 5px;
     position: relative;
-    right: -38px;
     width: 20px;
 }

@@ -7,7 +7,7 @@
     <title></title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
-    <link rel="stylesheet" href="css/datepicker.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection"/>
 
     <script src="js/jquery-1.8.2.min.js"></script>
@@ -62,7 +62,7 @@
 </div><!-- #wrapper -->
 
 <footer id="footer">
-    <strong>Footer:</strong> Mus elit Morbi mus enim lacus at quis Nam eget morbi. Et semper urna urna non at cursus dolor vestibulum neque enim. Tellus interdum at laoreet laoreet lacinia lacinia sed Quisque justo quis. Hendrerit scelerisque lorem elit orci tempor tincidunt enim Phasellus dignissim tincidunt. Nunc vel et Sed nisl Vestibulum odio montes Aliquam volutpat pellentesque. Ut pede sagittis et quis nunc gravida porttitor ligula.
+    <div>&copy; 2012 Воробьев Никита, по всем вопросам пишите по адресу voronsupermen@gmail.com</div>
 </footer><!-- #footer -->
 <script id="item" type="text/template">
     <tr class=" calendar_item">
@@ -93,16 +93,17 @@
             <textarea class="edit presentation" name='presentation' type="text"><%= data.presentation %></textarea>
         </td>
         <td>
-            <a class="destroy"></a>
-            <a class="toggle">edit</a>
+            <a class="toggle" title="редактировать"><i class="icon-edit"></i></a>
+            <a class="destroy" title="удалить"><i class="icon-remove"></i></a>
+
         </td>
 
     </tr>
 </script>
 <script id="not_item" type="text/template">
-    <div>
-        <td>Ничего не найдено, попробуйте изменить параметры фильтра</td>
-    </div>
+    <tr>
+        <td rowspan="6">Ничего не найдено, попробуйте изменить параметры фильтра</td>
+    </tr>
 
 </script>
 <script id="filter" type="text/template">
