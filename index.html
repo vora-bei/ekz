@@ -9,6 +9,7 @@
     <meta name="description" content=""/>
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
 
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/jquery.tools.min.js"></script>
@@ -75,6 +76,33 @@
                         </pre>
                     </td>
                 </tr>
+                <tr class="add-frame">
+                    <td>
+                        <input class="date" type="date" name='date' value=""/>
+                    </td>
+                    <td>
+                        <input class="time" type="text" name='time' value=""/>
+                    </td>
+
+                    <td>
+                        <input class="" type="text" name='title' value=""/>
+                    </td>
+                    <td>
+                        <input class="presenter" name='presenter' type="text" value=""/>
+                    </td>
+                    <td>
+                        <input class="" type="text" name='abstract' value=""/>
+
+                    </td>
+                    <td >
+                        <textarea class="presentation" name='presentation' type="text"></textarea>
+                    </td>
+                    <td>
+                        <a class="create" title="Создать"><i class="icon-edit"></i></a>
+                    </td>
+
+
+                </tr>
             </thead>
         </table>
     </div><!-- #content-->
@@ -88,34 +116,43 @@
     <tr class=" calendar_item">
         <td>
             <label class="view"><%= data.date %></label>
-            <input class="edit date" type="date" name='date' value="<%= data.date %>"/>
+            <div class="print-hide"><input class="edit date" type="date" name='date' value="<%= data.date %>"></div>
         </td>
         <td>
             <label class="view"><%= data.time %></label>
-            <input class="edit time" type="text" name='time' value="<%= data.time ? data.time : '00:00' %>"/>
+            <div class="print-hide"><input class="edit time" type="text" name='time' value="<%= data.time ? data.time : '00:00' %>"/>
         </td>
 
         <td>
             <label class="view"><%= data.title %></label>
-            <input class="edit" type="text" name='title' value="<%= data.title %>"/>
+            <div class="print-hide">
+                <input class="edit" type="text" name='title' value="<%= data.title %>"/>
+            </div>
         </td>
         <td>
             <label class="view"><%= data.presenter %></label>
-            <input class="edit presenter" name='presenter' type="text" value="<%= data.presenter %>"/>
+            <div class="print-hide">
+                <input class="edit presenter" name='presenter' type="text" value="<%= data.presenter %>"/>
+            </div>
         </td>
         <td>
             <label class="view"><%= data.abstract %></label>
-            <input class="edit" type="text" name='abstract' value="<%= data.abstract %>"/>
+            <div class="print-hide">
+                <input class="edit" type="text" name='abstract' value="<%= data.abstract %>"/>
+            </div>
 
         </td>
         <td >
             <label class="view"><%= data.presentation %></label>
-            <textarea class="edit presentation" name='presentation' type="text"><%= data.presentation %></textarea>
+            <div class="print-hide">
+                <textarea class="edit presentation" name='presentation' type="text"><%= data.presentation %></textarea>
+            </div>
         </td>
         <td>
-            <a class="toggle" title="редактировать"><i class="icon-edit"></i></a>
-            <a class="destroy" title="удалить"><i class="icon-remove"></i></a>
-
+            <div class="print-hide">
+                <a class="toggle" title="редактировать"><i class="icon-edit"></i></a>
+                <a class="destroy" title="удалить"><i class="icon-remove"></i></a>
+            </div>
         </td>
 
     </tr>

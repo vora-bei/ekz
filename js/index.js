@@ -7,271 +7,30 @@
  */
 
 
-
-
-// A simple module to replace `Backbone.sync` with *localStorage*-based
-// persistence. Models are given GUIDS, and saved into a JSON object. Simple
-// as that.
-
-// Generate four random hex digits.
-function S4() {
-	return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-}
-;
-
-// Generate a pseudo-GUID by concatenating random hexadecimal.
-function guid() {
-	return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-}
-;
-
-// Our Store is represented by a single JS object in *localStorage*. Create it
-// with a meaningful name, like the name you'd give a table.
-var Store = function (name) {
-	this.name = name;
-	var store = localStorage.getItem(this.name);
-	this.data = (store && JSON.parse(store)) || {};
-};
-
-_.extend(Store.prototype, {
-
-	// Save the current state of the **Store** to *localStorage*.
-	save:function () {
-		localStorage.setItem(this.name, JSON.stringify(this.data));
-	},
-
-	// Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
-	// have an id of it's own.
-	create:function (model) {
-		if (!model.id) model.id = model.attributes.id = guid();
-		this.data[model.id] = model;
-		this.save();
-		return model;
-	},
-	reset:function (data) {
-		this.data = data;
-		this.save();
-		return data;
-	},
-
-	// Update a model by replacing its copy in `this.data`.
-	update:function (model) {
-		this.data[model.id] = model;
-		this.save();
-		return model;
-	},
-
-	// Retrieve a model from `this.data` by id.
-	find:function (model) {
-		return this.data[model.id];
-	},
-
-	// Return the array of all models currently in storage.
-	findAll:function () {
-		return _.values(this.data);
-	},
-
-	// Delete a model from `this.data`, returning it.
-	destroy:function (model) {
-		delete this.data[model.id];
-		this.save();
-		return model;
-	},
-
-	export:function () {
-		var store = localStorage.getItem(this.name),
-			schema = localStorage.getItem(this.name + '.schema'),
-			data = {schema:[], data:[]};
-
-		store = (store && JSON.parse(store)) || {};
-		data.schema = (store && JSON.parse(schema)) || {};
-			data.data=_.map(store,function(num){
-				return _.values(num);
-			},this)
-		return JSON.stringify(data,{},' ')
-
-	},
-	import:function (data) {
-		if (!(data && data.schema && data.data)) {
-			conslole.log('ошибка формата данных')
-			return false;
-		}
-		var lengthShema = 0,
-			lengthData = 0,
-			list = [],
-			tempItem = {},
-			schema = data.schema
-		list = data.data,
-			listTemp = {};
-
-
-		lengthShema = schema.length;
-		lengthData = list.length;
-		for (var i = 0; i < lengthData; i++) {
-			tempItem = {}
-			for (var j = 0; j < lengthShema; j++) {
-				tempItem[schema[j]] = list[i][j]
-
-			}
-			if (!tempItem.id) tempItem.id = guid();
-			listTemp[tempItem.id] = tempItem
-		}
-		this.data = listTemp;
-		localStorage.setItem(this.name, JSON.stringify(this.data));
-		localStorage.setItem(this.name + '.schema', JSON.stringify(schema));
-	}
-
-
-});
-
-$.tools.dateinput.localize("ru", {
-	months:'Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь',
-	shortMonths:'Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек',
-	days:'воскресенье,понедельник,вторник,среда,четверг,пятница,суббота',
-	shortDays:'Вс,Пн,Вт,Ср,Чт,Пт,Сб'
-});
-$.tools.dateinput.conf.lang = 'ru';
-
-
-var dataelem =
-{
-	schema:['date', 'time', 'title', 'abstract', 'presenter', 'presentation', 'id'],
-	data:[
-		['15/09/13', '12:00', 'Общий цикл разработки ', '', 'Михаил Трошев', 'Итак, первая лекция — «Общий цикл разработки», лектор Миша Трошев (mishanga).Презентация лекции: http://yadi.sk/d/VDsJ4ZUBiq6u Видео — http://static.video.yandex.ru/lite/ya-events/yb1ix4ck06.4829 Видео для скачивания — http://yadi.sk/d/Lr0Y4WO606jTc'],
-		['15/09/12', '', 'title', 'abstract', 'presenter', 'presentation1'],
-		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation2'],
-		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation3'],
-		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation4'],
-		['10/16/12', '', 'title ', 'abstract', 'presenter', 'presentation5']
-
-	]
-}
-
-
-var dataElem={
-	"schema":["date","time","title","abstract","presenter","presentation","id"],
-	"data":[
-	["15/09/13","12:00","Общий цикл разработки ","","Михаил Трошев","Итак, первая лекция — «Общий цикл разработки», лектор Миша Трошев (mishanga).Презентация лекции: http://yadi.sk/d/VDsJ4ZUBiq6u Видео — http://static.video.yandex.ru/lite/ya-events/yb1ix4ck06.4829 Видео для скачивания — http://yadi.sk/d/Lr0Y4WO606jTc"],["15/09/12","","title","abstract","presenter","presentation1"],["10/16/12","","title","abstract","presenter","presentation2"],
-	["10/16/12","","title","abstract","presenter","presentation3"],
-	["10/16/12","","title","abstract","presenter","presentation4"],
-	["10/16/12","","title ","abstract","presenter","presentation5"]
-]
-}
-
-// Override `Backbone.sync` to use delegate to the model or collection's
-// *localStorage* property, which should be an instance of `Store`.
-Backbone.sync = function (method, model, options) {
-
-	var resp;
-	var store = model.localStorage || model.collection.localStorage;
-
-	switch (method) {
-		case "read":
-			options.import ? store.import(options.data) : '';
-			options.exp=options.export ? store.export(options.data) : '';
-			resp = model.id ? store.find(model) : store.findAll();
-			break;
-		case "create":
-
-			resp = store.create(model);
-			break;
-		case "update":
-			resp = store.update(model);
-			break;
-		case "delete":
-			resp = store.destroy(model);
-			break;
-		case "reset":
-			resp = store.reset(model);
-			break;
-	}
-
-	if (resp) {
-		options.success(resp);
-	} else {
-		options.error("Record not found");
-	}
-};
-
-
-var Item = Backbone.Model.extend({
-	defaults:function () {
-		return {
-
-		};
-	},
-	initialize:function () {
-
-	}
-});
-
-var ItemList = Backbone.Collection.extend({
-
-	model:Item,
-	filter:{all:''},
-	localStorage:new Store("calendar-backbone"),
-	import:function (data) {
-		this.fetch({data:data, import:true})
-	},
-	import:function (data) {
-		this.fetch({data:data, export:true})
-	},
-	search:function () {
-		var filter=this.filter.all.split(' ');
-		return _.each(this.models,function(num,key){
-				var is_find= _.any(filter,function(i){
-					if(_.isEmpty(i)&&filter.length!=1)return false;
-					var findString= num.get('date')+' '+num.get('presenter')+' '+num.get('title')
-					return findString.indexOf(i) + 1;
-				},
-				this)
-				is_find?num.trigger('hidden',true):num.trigger('hidden',false)
-		},this)
-	}
-
-
-});
-// Create our global collection of **Todos**.
-
-
 var mainApp = Backbone.View.extend({
 	list:[],
 	initialize:function () {
+		this.initRender();
 		this.render('list');
-		this.$('.import-frame').hide();
-		this.$('.export-frame').hide();
+		this.initHead();
 		this.collection.on('reset', this.render, this);
+		this.collection.on('add', this.render, this);
 		this.collection.fetch();
 	},
+
 	events:{
 		'click .import': 'toggleImport',
 		'click .export': 'toggleExport',
+		'click .add-elem': 'toggleAdd',
+		'click .create': 'createLine',
+		'click .print': 'togglePrint',
 		'submit .import-frame form': 'submitImport'
 	},
-	toggleImport : function(){
-		this.$('.import-frame').slideToggle('300')
-		return false;
-	},
-	toggleExport : function(){
-		this.$('.export-input').html(this.collection.localStorage.export())
-		this.$('.export-frame').slideToggle('300')
-		return false;
-	},
-	submitImport : function(){
-		var form=this.$('form','.import-frame');
-		var imp=$('textarea[name="import"]',form);
-		this.collection.import(JSON.parse(imp.val()))
-		imp.val('');
-		this.$('.import-frame').slideUp()
-		return false;
-	},
 	render:function (list) {
-		var collection = this.collection,
-			elem = this.$('.calendar_list'),
-			item = this._item,
-			list = 'list';
-		this.resetRender(list);
-		this.renderList(elem, collection, item, list);
+		var collection = this.collection;
+		this.resetRender(this.listName);
+		this.renderList(this.elem, collection, this.item, this.listName);
+		this.collection.search()
 		return this;
 	},
 	resetRender:function (list) {
@@ -295,6 +54,62 @@ var mainApp = Backbone.View.extend({
 
 		}
 	},
+	initRender:function(){
+		this.elem = this.$('.calendar_list'),
+		this.item = this._item,
+		this.listName = 'list';
+	},
+	initHead: function(){
+		this.$('.import-frame').hide();
+		this.$('.export-frame').hide();
+		this.$('.add-frame').hide();
+		this.$(":date").dateinput({lang:'ru'});
+		this.$(".time").setMask("29:59")
+			.keypress(function () {
+				var currentMask = $(this).data('mask').mask;
+				var newMask = $(this).val().match(/^2.*/) ? "23:59" : "29:59";
+				if (newMask != currentMask) {
+					$(this).setMask(newMask);
+				}
+			});
+	},
+	toggleImport : function(){
+		this.$('.import-frame').slideToggle('300')
+		return false;
+	},
+	toggleAdd : function(){
+		this.$('.add-frame').slideToggle('300')
+		return false;
+	},
+	createLine:function(){
+		var $self = this,$this,value,item={};
+		var frame=this.$('.add-frame')
+		$('[name]',frame).each(function () {
+			$this = $(this)
+			item[$this.attr('name')]=$this.attr('value');
+		})
+		this.collection.create(item)
+		frame.hide()
+	},
+	toggleExport : function(){
+		this.$('.export-input').html(this.collection.localStorage.export())
+		this.$('.export-frame').slideToggle('300')
+		return false;
+	},
+	togglePrint:function(){
+		$('#search, header, .print-hide').toggle();
+		$('.editing').removeClass('editing');
+		$('.import-frame,.export-frame,.add-frame').hide();
+	},
+	submitImport : function(){
+		var form=this.$('form','.import-frame');
+		var imp=$('textarea[name="import"]',form);
+		this.collection.import(JSON.parse(imp.val()))
+		imp.val('');
+		this.$('.import-frame').slideUp()
+		return false;
+	},
+
 
 	_item:Backbone.View.extend({
 
@@ -427,6 +242,238 @@ var Filter = Backbone.View.extend({
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+// A simple module to replace `Backbone.sync` with *localStorage*-based
+// persistence. Models are given GUIDS, and saved into a JSON object. Simple
+// as that.
+
+// Generate four random hex digits.
+function S4() {
+	return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+}
+;
+
+// Generate a pseudo-GUID by concatenating random hexadecimal.
+function guid() {
+	return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}
+;
+
+// Our Store is represented by a single JS object in *localStorage*. Create it
+// with a meaningful name, like the name you'd give a table.
+var Store = function (name) {
+	this.name = name;
+	var store = localStorage.getItem(this.name);
+	this.data = (store && JSON.parse(store)) || {};
+};
+
+_.extend(Store.prototype, {
+
+	// Save the current state of the **Store** to *localStorage*.
+	save:function () {
+		localStorage.setItem(this.name, JSON.stringify(this.data));
+	},
+
+	// Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
+	// have an id of it's own.
+	create:function (model) {
+		if (!model.id) model.id = model.attributes.id = guid();
+		this.data[model.id] = model;
+		this.save();
+		return model;
+	},
+	reset:function (data) {
+		this.data = data;
+		this.save();
+		return data;
+	},
+
+	// Update a model by replacing its copy in `this.data`.
+	update:function (model) {
+		this.data[model.id] = model;
+		this.save();
+		return model;
+	},
+
+	// Retrieve a model from `this.data` by id.
+	find:function (model) {
+		return this.data[model.id];
+	},
+
+	// Return the array of all models currently in storage.
+	findAll:function () {
+		return _.values(this.data);
+	},
+
+	// Delete a model from `this.data`, returning it.
+	destroy:function (model) {
+		delete this.data[model.id];
+		this.save();
+		return model;
+	},
+
+	export:function () {
+		var store = localStorage.getItem(this.name),
+			schema = localStorage.getItem(this.name + '.schema'),
+			data = {schema:[], data:[]};
+
+		store = (store && JSON.parse(store)) || {};
+		data.schema = (store && JSON.parse(schema)) || {};
+		data.data=_.map(store,function(num){
+			return _.values(num);
+		},this)
+		return JSON.stringify(data,{},' ')
+
+	},
+	import:function (data) {
+		if (!(data && data.schema && data.data)) {
+			conslole.log('ошибка формата данных')
+			return false;
+		}
+		var lengthShema = 0,
+			lengthData = 0,
+			list = [],
+			tempItem = {},
+			schema = data.schema
+		list = data.data,
+			listTemp = {};
+
+
+		lengthShema = schema.length;
+		lengthData = list.length;
+		for (var i = 0; i < lengthData; i++) {
+			tempItem = {}
+			for (var j = 0; j < lengthShema; j++) {
+				tempItem[schema[j]] = list[i][j]
+
+			}
+			if (!tempItem.id) tempItem.id = guid();
+			listTemp[tempItem.id] = tempItem
+		}
+		this.data = listTemp;
+		localStorage.setItem(this.name, JSON.stringify(this.data));
+		localStorage.setItem(this.name + '.schema', JSON.stringify(schema));
+	}
+
+
+});
+
+$.tools.dateinput.localize("ru", {
+	months:'Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь',
+	shortMonths:'Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек',
+	days:'воскресенье,понедельник,вторник,среда,четверг,пятница,суббота',
+	shortDays:'Вс,Пн,Вт,Ср,Чт,Пт,Сб'
+});
+$.tools.dateinput.conf.lang = 'ru';
+$.tools.dateinput.conf.format = 'dd/mm/yyyy';
+
+
+
+var dataElem={
+	"schema":["date","time","title","abstract","presenter","presentation","id"],
+	"data":[
+		["15/09/13","12:00","Общий цикл разработки ","","Михаил Трошев","Итак, первая лекция — «Общий цикл разработки», лектор Миша Трошев (mishanga).Презентация лекции: http://yadi.sk/d/VDsJ4ZUBiq6u Видео — http://static.video.yandex.ru/lite/ya-events/yb1ix4ck06.4829 Видео для скачивания — http://yadi.sk/d/Lr0Y4WO606jTc"],["15/09/12","","title","abstract","presenter","presentation1"],["10/16/12","","title","abstract","presenter","presentation2"],
+		["10/16/12","","title","abstract","presenter","presentation3"],
+		["10/16/12","","title","abstract","presenter","presentation4"],
+		["10/16/12","","title ","abstract","presenter","presentation5"]
+	]
+}
+
+// Override `Backbone.sync` to use delegate to the model or collection's
+// *localStorage* property, which should be an instance of `Store`.
+Backbone.sync = function (method, model, options) {
+
+	var resp;
+	var store = model.localStorage || model.collection.localStorage;
+
+	switch (method) {
+		case "read":
+			options.import ? store.import(options.data) : '';
+			options.exp=options.export ? store.export(options.data) : '';
+			resp = model.id ? store.find(model) : store.findAll();
+			break;
+		case "create":
+
+			resp = store.create(model);
+			break;
+		case "update":
+			resp = store.update(model);
+			break;
+		case "delete":
+			resp = store.destroy(model);
+			break;
+		case "reset":
+			resp = store.reset(model);
+			break;
+	}
+
+	if (resp) {
+		options.success(resp);
+	} else {
+		options.error("Record not found");
+	}
+};
+
+
+var Item = Backbone.Model.extend({
+	defaults:function () {
+		return {
+
+		};
+	},
+	initialize:function () {
+
+	}
+});
+
+var ItemList = Backbone.Collection.extend({
+
+	model:Item,
+	filter:{all:''},
+	localStorage:new Store("calendar-backbone"),
+	import:function (data) {
+		this.fetch({data:data, import:true})
+	},
+	import:function (data) {
+		this.fetch({data:data, export:true})
+	},
+	comparator:function(model){
+		var date=new Date(model.get('date')+model.get('time'))
+			return date.getTime();
+	},
+	search:function () {
+		var filter=this.filter.all.split(' ');
+		return _.each(this.models,function(num,key){
+			var is_find= _.any(filter,function(i){
+					if(_.isEmpty(i)&&filter.length!=1)return false;
+					var findString= num.get('date')+' '+num.get('presenter')+' '+num.get('title')
+					return findString.indexOf(i) + 1;
+				},
+				this)
+			is_find?num.trigger('hidden',true):num.trigger('hidden',false)
+		},this)
+	}
+
+
+});
+
+
+
+
+
+
+
+
 
 
 var calendarCollection = new ItemList;

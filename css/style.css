@@ -265,7 +265,11 @@ a.caldisabled {
 }
 /* List and Item calendar
 -----------------------------------------------------------------------------*/
+.calendar_list  {
+    margin-top: 30px;
+    margin-bottom: 30px;
 
+}
 .calendar_list .editing {
 
     margin-top: -1px;
@@ -274,6 +278,9 @@ a.caldisabled {
 .calendar_list td {
     padding: 2px;
 }
+.calendar_list thead td {
+    font-weight:bold
+    }
 .calendar_list tr {
     border-bottom: 1px solid black;
     height: 60px;
@@ -288,11 +295,18 @@ a.caldisabled {
 .calendar_list .editing .view {
     display: none;
 }
-.calendar_list  .edit {
+.edit {
     display: none;
 }
+.calendar_list thead{
+    background-color: #CCCCCC;
+}
+.calendar_list .create{
+    background-color: #CCCCCC;
+}
 
- .calendar_item:hover .destroy,.calendar_item:hover .toggle {
+
+.calendar_item:hover .destroy,.calendar_item:hover .toggle {
     display: inline-block;
 }
 
@@ -309,6 +323,10 @@ a.caldisabled {
 -----------------------------------------------------------------------------*/
 .menu-calendar a{
     margin-right: 3px;
+    cursor: pointer;
+}
+a.create{
+    margin-left: 50px;
     cursor: pointer;
 }
 
