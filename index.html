@@ -22,11 +22,11 @@
 
 <body>
 
-<div id="wrapper">
+<div class="wrapper">
 
-    <header id="header">
-        <strong>Header:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tortor. Praesent dictum, libero ut tempus dictum, neque eros elementum mauris, quis mollis arcu velit ac diam. Etiam neque. Quisque nec turpis. Aliquam arcu nulla, dictum et, lacinia a, mollis in, ante. Sed eu felis in elit tempor venenatis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ultricies porttitor purus. Proin non tellus at ligula fringilla tristique. Fusce vehicula quam. Curabitur vel tortor vitae pede imperdiet ultrices. Sed tortor.
-    </header><!-- #header-->
+    <header>
+        <h2>Расписание Занятий ШРИ</h2>
+    </header>
     <div id="search"></div>
     <div id="list">
 
@@ -109,7 +109,7 @@
 
 </div><!-- #wrapper -->
 
-<footer id="footer">
+<footer>
     <div>&copy; 2012 Воробьев Никита, по всем вопросам пишите по адресу voronsupermen@gmail.com</div>
 </footer><!-- #footer -->
 <script id="item" type="text/template">
@@ -165,7 +165,7 @@
 </script>
 <script id="filter" type="text/template">
     <div class="input-append pagination-centered margin_bottom_18">
-        <input type="text" value='<%=filter%>' class="span3 filter"  size="16" name="<%=name%>">
+        <input  placeholder='Фильтр (15/10/2012 Докладчик Тема)' type="text" value='<%=filter%>' class="span3 filter"  size="16" name="<%=name%>">
         <button class="btn filter-button-click" type="button"><i class="icon-search"></i></button>
     </div>
 </script>
