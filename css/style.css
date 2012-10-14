@@ -340,3 +340,12 @@ input{
     display: inline-block;
     width: 400px
 }
+
+.import-frame textarea{
+    display: inline-block;
+    width: 800px
+}
+.export-frame pre{
+    display: block;
+    width: 800px
+}

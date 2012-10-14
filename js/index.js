@@ -85,12 +85,10 @@ _.extend(Store.prototype, {
 
 		store = (store && JSON.parse(store)) || {};
 		data.schema = (store && JSON.parse(schema)) || {};
-
-		var lengthData = store.length;
-		for (var i = 0; i < lengthData; i++) {
-			data.data.push(_.values(store[i]))
-		}
-		return JSON.stringify(data)
+			data.data=_.map(store,function(num){
+				return _.values(num);
+			},this)
+		return JSON.stringify(data,{},' ')
 
 	},
 	import:function (data) {
@@ -139,7 +137,7 @@ var dataelem =
 {
 	schema:['date', 'time', 'title', 'abstract', 'presenter', 'presentation', 'id'],
 	data:[
-		['15/09/12', '12:00', 'Общий цикл разработки ', '', 'Михаил Трошев', 'Итак, первая лекция — «Общий цикл разработки», лектор Миша Трошев (mishanga).Презентация лекции: http://yadi.sk/d/VDsJ4ZUBiq6u Видео — http://static.video.yandex.ru/lite/ya-events/yb1ix4ck06.4829 Видео для скачивания — http://yadi.sk/d/Lr0Y4WO606jTc'],
+		['15/09/13', '12:00', 'Общий цикл разработки ', '', 'Михаил Трошев', 'Итак, первая лекция — «Общий цикл разработки», лектор Миша Трошев (mishanga).Презентация лекции: http://yadi.sk/d/VDsJ4ZUBiq6u Видео — http://static.video.yandex.ru/lite/ya-events/yb1ix4ck06.4829 Видео для скачивания — http://yadi.sk/d/Lr0Y4WO606jTc'],
 		['15/09/12', '', 'title', 'abstract', 'presenter', 'presentation1'],
 		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation2'],
 		['10/16/12', '', 'title', 'abstract', 'presenter', 'presentation3'],
@@ -149,6 +147,16 @@ var dataelem =
 	]
 }
 
+
+var dataElem={
+	"schema":["date","time","title","abstract","presenter","presentation","id"],
+	"data":[
+	["15/09/13","12:00","Общий цикл разработки ","","Михаил Трошев","Итак, первая лекция — «Общий цикл разработки», лектор Миша Трошев (mishanga).Презентация лекции: http://yadi.sk/d/VDsJ4ZUBiq6u Видео — http://static.video.yandex.ru/lite/ya-events/yb1ix4ck06.4829 Видео для скачивания — http://yadi.sk/d/Lr0Y4WO606jTc"],["15/09/12","","title","abstract","presenter","presentation1"],["10/16/12","","title","abstract","presenter","presentation2"],
+	["10/16/12","","title","abstract","presenter","presentation3"],
+	["10/16/12","","title","abstract","presenter","presentation4"],
+	["10/16/12","","title ","abstract","presenter","presentation5"]
+]
+}
 
 // Override `Backbone.sync` to use delegate to the model or collection's
 // *localStorage* property, which should be an instance of `Store`.
@@ -160,6 +168,7 @@ Backbone.sync = function (method, model, options) {
 	switch (method) {
 		case "read":
 			options.import ? store.import(options.data) : '';
+			options.exp=options.export ? store.export(options.data) : '';
 			resp = model.id ? store.find(model) : store.findAll();
 			break;
 		case "create":
@@ -204,6 +213,9 @@ var ItemList = Backbone.Collection.extend({
 	import:function (data) {
 		this.fetch({data:data, import:true})
 	},
+	import:function (data) {
+		this.fetch({data:data, export:true})
+	},
 	search:function () {
 		var filter=this.filter.all.split(' ');
 		return _.each(this.models,function(num,key){
@@ -226,8 +238,32 @@ var mainApp = Backbone.View.extend({
 	list:[],
 	initialize:function () {
 		this.render('list');
+		this.$('.import-frame').hide();
+		this.$('.export-frame').hide();
 		this.collection.on('reset', this.render, this);
 		this.collection.fetch();
+	},
+	events:{
+		'click .import': 'toggleImport',
+		'click .export': 'toggleExport',
+		'submit .import-frame form': 'submitImport'
+	},
+	toggleImport : function(){
+		this.$('.import-frame').slideToggle('300')
+		return false;
+	},
+	toggleExport : function(){
+		this.$('.export-input').html(this.collection.localStorage.export())
+		this.$('.export-frame').slideToggle('300')
+		return false;
+	},
+	submitImport : function(){
+		var form=this.$('form','.import-frame');
+		var imp=$('textarea[name="import"]',form);
+		this.collection.import(JSON.parse(imp.val()))
+		imp.val('');
+		this.$('.import-frame').slideUp()
+		return false;
 	},
 	render:function (list) {
 		var collection = this.collection,
@@ -396,8 +432,3 @@ var Filter = Backbone.View.extend({
 var calendarCollection = new ItemList;
 var calendarView = new mainApp({el:document.getElementById('list'), collection:calendarCollection})
 var filterView = new Filter({name:'all', el:document.getElementById('search'), collection:calendarCollection})
-
-
-
-
-
