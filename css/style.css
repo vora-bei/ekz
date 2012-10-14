@@ -396,5 +396,6 @@ input {
 
 .export-frame pre {
     display: block;
-    width: 800px
+    overflow-x: auto;
+    width: 1000px
 }
