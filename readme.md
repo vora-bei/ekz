@@ -1,12 +1,11 @@
-/**
- * Created with JetBrains PhpStorm.
- * User: Администратор
- * Date: 14.10.12
- * Time: 20:12
- * To change this template use File | Settings | File Templates.
- */
+Проект реализован с помощью библиотек Backbone.js, Jquery.js, jquery.meio.mask.js, jquery.tools.min.js, underscore.js.
+Реализован живой поиск,по дате, лектору,заголовку лекции. Поиск происходит по строчке разделенной пробелами,
+ например "10/10/2011 Трошев" выдаст все строчки где дата 10/10/2011 или автор Трошев.
+ Список отсортирован по дате + время,если добавляется новый элемент он вставляется на хронологически верное место.
+ При переходе в режим печати фильтр не сбрасывается и можно распечатать только нужные записи.
 
-var a = {
+Формат экспорта данных (id не обязателен)
+{
 	"schema":["date", "time", "title", "abstract", "presenter", "presentation", "id"],
 	"data":[
 		["15.09.2012", "12:00", "Общий цикл разработки ", "первая лекция", "Михаил Трошев", "<a href='http://yadi.sk/d/VDsJ4ZUBiq6u'>Презентация лекции</a> <br><a href='http://static.video.yandex.ru/lite/ya-events/yb1ix4ck06.4829'>Видео</a><br><a href='http://yadi.sk/d/Lr0Y4WO606jTc'>Видео для скачивания</a>"],
